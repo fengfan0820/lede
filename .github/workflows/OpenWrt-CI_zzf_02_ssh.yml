@@ -184,7 +184,7 @@ jobs:
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
       - name: SSH connection to Actions
-        uses: zzf/debugger-action@master
+        uses: fengfan0820/debugger-action@master
         if: env.SSH_ACTIONS == 'true'
       - name: Make download
         run: |
