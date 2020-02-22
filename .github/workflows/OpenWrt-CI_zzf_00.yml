@@ -7,7 +7,7 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: OpenWrt-CI_zzf_00
+name: OpenWrt-CI_zzf_01
 
 on:
   push:
@@ -17,6 +17,8 @@ on:
   #   - cron: 0 20 * * *
   # release:
   #   types: [published]
+env:
+  SSH_ACTIONS: true
 
 jobs:
 
@@ -52,6 +54,14 @@ jobs:
           # ln -s /mnt/openwrt/staging_dir ./staging_dir
 
           df -h
+          
+      - name: 自定义插件主题。
+        run: |
+          cd package
+          mkdir openwrt-packages
+          cd openwrt-packages
+          
+          git clone https://github.com/honwen/luci-app-aliddns.git
 
       - name: Update feeds
         run: |
@@ -139,7 +149,7 @@ jobs:
           # EOF
 
           # 常用LuCI插件选择:
-          # cat >> .config <<EOF
+          cat >> .config <<EOF
           # CONFIG_PACKAGE_luci-app-adbyby-plus=y
           # CONFIG_PACKAGE_luci-app-aria2=y
           # CONFIG_PACKAGE_luci-app-baidupcs-web=y
@@ -161,7 +171,8 @@ jobs:
           # CONFIG_PACKAGE_luci-app-webadmin=y
           # CONFIG_PACKAGE_luci-app-wireguard=y
           # CONFIG_PACKAGE_luci-app-wrtbwmon=y
-          # EOF
+          ONFIG_PACKAGE_luci-app-aliddns=y
+          EOF
 
           # LuCI主题:
           # cat >> .config <<EOF
