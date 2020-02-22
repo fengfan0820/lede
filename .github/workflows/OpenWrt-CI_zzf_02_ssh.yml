@@ -179,14 +179,13 @@ jobs:
           # # CONFIG_VMDK_IMAGES is not set
           # EOF
           # 
-      - name: SSH connection to Actions
-        uses: zzf
-        if: env.SSH_ACTIONS == 'true'
-        
           # ========================固件定制部分结束========================
           # 
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
+      - name: SSH connection to Actions
+        uses: zzf
+        if: env.SSH_ACTIONS == 'true'
       - name: Make download
         run: |
           make download -j8
